@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 
 int mystrlen(char *s) {
   int i = 0;
@@ -46,20 +46,29 @@ char * mystrncat(char *dest, char *source, int n) {
   
   dest[destLen + i] = '\0';
   return dest;
-
 }
 
 int mystrcmp(char *s1, char *s2) {
-  return 0;
+  int i = 0;
+  for (; s1[i] || s2[i]; i++)
+    if (s1[i] != s2[i])
+      return s1[i] - s2[i];
 }
 
 char * mystrchr(char *s, char c) {
+  int i = 0;
+  for (; s[i]; i++) {
+    if (s[i] - c == 0) {
+      return s+i;
+    }
+  }
+  return '\0';
+}
+
+char * mystrstr(char *s, char *sub) {
   return 0;
 }
 
 int main() {
-  char source[] = "World";
-  char dest[100] = "Hello";
-  printf("%s\n", mystrcpy(dest,source));
   return 0;
 }
