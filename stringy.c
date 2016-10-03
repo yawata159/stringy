@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 int mystrlen(char *s) {
   int i = 0;
@@ -66,9 +65,61 @@ char * mystrchr(char *s, char c) {
 }
 
 char * mystrstr(char *s, char *sub) {
-  return 0;
+  if (sub == "") return s;
+  
+  int i;
+  int subLen = mystrlen(sub);
+  for (i = 0; s[i]; s++) {
+    int j = 0;
+    for (; j < subLen; j++) {
+      if ((s[j] == sub[j]) && (j == subLen-1))
+	return s;
+      else if (s[j] != sub[j])
+	break;
+    }
+  }
+  return '\0';
+  
 }
 
 int main() {
-  return 0;
+  printf("Before applying functions:\n");
+  char s1[] = "Hello-World";
+  char s2[50] = "";
+  char s3[] = "Happy-Birthday";
+  printf("s1 = %s\tlength = %d\n", s1, mystrlen(s1));
+  printf("s2 = %s\t\t\tlength = %d\n", s2, mystrlen(s2));
+  printf("s3 = %s\tlength = %d\n", s3, mystrlen(s3));
+
+  printf("\nTesting regular functions:\n");
+  mystrcpy(s2,s1);
+  printf("Copy s1 to s2:\t\ts2 = %s\tlength = %d\n", s2, mystrlen(s2));
+  mystrcat(s2, "-War");
+  printf("Cat \"-War\" to s2:\ts2 = %s\tlength = %d\n", s2, mystrlen(s2));
+
+  printf("\nTesting \"n\" functions:\n");
+  mystrncpy(s2, s3, 4);
+  printf("Copy 4 characters of s3 to s2:\t\ts2 = %s\t\tlength = %d\n", s2, mystrlen(s2));
+  mystrncat(s2, "123456", 3);
+  printf("Cat 3 characters of \"123456\" to s2:\ts2 = %s\t\tlength = %d\n", s2, mystrlen(s2));
+
+  printf("\nTesting cmp:\n");
+  printf("Compare ab to abc: %d\n", mystrcmp("ab","abc"));
+  printf("Compare abc to ab: %d\n", mystrcmp("abc","ab"));
+  printf("Compare abc to abc: %d\n", mystrcmp("abc","abc"));
+
+  printf("\nTesting chr:\n");
+  char s4[] = "It's not a bug, it's a feature";
+  printf("Original string: \"%s\"\n", s4);
+  printf("Looking for 'a': \"%s\"\n", mystrchr(s4, 'a'));
+  printf("Lookinf for 'f': \"%s\"\n", mystrchr(s4, 'f'));
+  printf("Looking for 'z': \"%s\"\n", mystrchr(s4, 'z'));
+  
+  printf("\nTesting str:\n");
+  char s5[] = "The C language combines all the power of assembly language with all the ease-of-use of assembly language";
+  printf("Original string: \"%s\"\n", s5);
+  printf("Looking for \"assembly\": \"%s\"\n", mystrstr(s5, "assembly"));
+  printf("Looking for \"ease\": \"%s\"\n", mystrstr(s5, "ease"));
+  printf("Looking for \"java\": \"%s\"\n", mystrstr(s5, "java"));
+
 }
